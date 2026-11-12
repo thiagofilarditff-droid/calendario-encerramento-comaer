@@ -10,17 +10,20 @@ function setup(){
   if(seen.has(root))return;
   var input=root.querySelector('[data-search-input]'), controls=root.querySelector('[data-search-controls]'), status=root.querySelector('[data-search-status]'), empty=root.querySelector('[data-search-empty]'), clear=root.querySelector('[data-search-clear]');
   if(!input||!controls||!status||!empty||!clear)return;
+  var dateSel=root.querySelector('[data-search-date]');
   seen.add(root);
   var rows=Array.from(root.querySelectorAll('tbody > tr'));
+  var ranges=rows.map(function(row){return [row.getAttribute('data-start')||'',row.getAttribute('data-end')||''];});
   var texts=rows.map(function(row){return normalize(row.textContent||'');});
   function filter(){
-   var words=normalize(input.value).split(' ').filter(Boolean), count=0;
-   rows.forEach(function(row,i){var match=words.every(function(word){return texts[i].includes(word);});row.style.setProperty('display',match?'table-row':'none','important');if(match)count++;});
-   status.textContent=words.length?count+' de '+rows.length+' eventos encontrados.':rows.length+' eventos no calendário.';
+   var words=normalize(input.value).split(' ').filter(Boolean), day=dateSel?dateSel.value:'', count=0;
+   rows.forEach(function(row,i){var match=words.every(function(word){return texts[i].includes(word);})&&(!day||(ranges[i][0]!==''&&ranges[i][0]<=day&&day<=(ranges[i][1]||ranges[i][0])));row.style.setProperty('display',match?'table-row':'none','important');if(match)count++;});
+   status.textContent=(words.length||day)?count+' de '+rows.length+' eventos encontrados.':rows.length+' eventos no calendário.';
    empty.style.setProperty('display',count?'none':'block','important');
   }
   input.addEventListener('input',filter);
-  clear.addEventListener('click',function(){input.value='';filter();input.focus();});
+  if(dateSel)dateSel.addEventListener('change',filter);
+  clear.addEventListener('click',function(){input.value='';if(dateSel)dateSel.value='';filter();input.focus();});
   controls.style.setProperty('display','flex','important');
   filter();
  });
