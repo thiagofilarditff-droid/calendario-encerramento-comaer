@@ -1,3 +1,15 @@
+# Calendário de Encerramento — SUCONT-2
+
+Código do aplicativo que converte calendários Word (.docx) em HTML para inserção no Joomla, com pesquisa por termo.
+
+Aplicativo: https://calendario-diref-conversor.thiagofilardi.chatgpt.site/
+
+Cópia do código-fonte Sites no commit `f0bb93eee88d5385ecf45bd3ff3eba60736fb413`.
+
+O documento `public/exemplo.docx` não está incluído nesta cópia. Utilize o envio de um arquivo Word próprio; o botão de demonstração depende desse arquivo ausente. Esta cópia não estabelece sincronização automática com o Sites.
+
+## Instruções técnicas do projeto
+
 # vinext-starter
 
 A clean full-stack starter running on [vinext](https://github.com/cloudflare/vinext), with optional Cloudflare D1 and Drizzle support.
