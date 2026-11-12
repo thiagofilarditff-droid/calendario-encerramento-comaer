@@ -18,7 +18,7 @@ function setup(){
   function filter(){
    var words=normalize(input.value).split(' ').filter(Boolean), day=dateSel?dateSel.value:'', count=0;
    rows.forEach(function(row,i){var match=words.every(function(word){return texts[i].includes(word);})&&(!day||(ranges[i][0]!==''&&ranges[i][0]<=day&&day<=(ranges[i][1]||ranges[i][0])));row.style.setProperty('display',match?'table-row':'none','important');if(match)count++;});
-   status.textContent=(words.length||day)?count+' de '+rows.length+' eventos encontrados.':rows.length+' eventos no calendário.';
+   status.textContent='';
    empty.style.setProperty('display',count?'none':'block','important');
   }
   input.addEventListener('input',filter);
